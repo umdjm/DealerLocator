@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dealer Locator</h1>
+<%= render 'form' %>
+
+<div id="map-div"></div>
+
+<table>
+
+  <% @locations.each do |location| %>
+      <tr>
+        <td><%= location.address %></td>
+      </tr>
+  <% end %>
+</table>
+
+
+<script>
+
+    var map;
+    var markers = [];
+
+
+    function initMap() {
+        google.maps.visualRefresh = true;
+
+        var centerPos = new google.maps.LatLng(<%= @search.latitude %>, <%= @search.longitude %>);
+        var mapOptions = {
+            zoom: 10,
+            center: centerPos,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControl: false,
+            streetViewControl: false
+        };
+        map = new google.maps.Map(document.getElementById('map-div'), mapOptions);
+
+
+        <% @locations.each do |location| %>
+            var position = new google.maps.LatLng(<%= location.latitude %> , <%= location.longitude %>);
+            var marker =  new google.maps.Marker({position: position, map: map});
+        <% end %>
+    }
+    document.addEventListener('DOMContentLoaded', initMap, false);
+
+</script>
