@@ -62,7 +62,7 @@ class SearchesController < ApplicationController
 
     respond_to do |format|
       if @search.update_attributes(params[:search])
-        format.html { redirect_to @search, notice: 'Search was successfully updated.' }
+        format.html { redirect_to @search, notice: 'Search was successful.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
